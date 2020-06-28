@@ -10,6 +10,7 @@
 		92F37995F55A3E420B1BDC49 /* Pods_PSFlickr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C8B587628822CE4502F6D3 /* Pods_PSFlickr.framework */; };
 		BD0EA6CB24A4A4A0001EF472 /* CommentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0EA6CA24A4A4A0001EF472 /* CommentsCell.swift */; };
 		BD0EA6CF24A4A74B001EF472 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0EA6CE24A4A74B001EF472 /* Extensions.swift */; };
+		BD39EB2824A892C5002625E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD39EB2724A892C5002625E6 /* GoogleService-Info.plist */; };
 		BD56D59E2496ECE600E30541 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56D59D2496ECE600E30541 /* AppDelegate.swift */; };
 		BD56D5A72496ECE600E30541 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD56D5A62496ECE600E30541 /* Assets.xcassets */; };
 		BD56D5AA2496ECE600E30541 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD56D5A82496ECE600E30541 /* LaunchScreen.storyboard */; };
@@ -29,6 +30,7 @@
 		775C1B1C00F10D64C19C14CB /* Pods-PSFlickr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PSFlickr.debug.xcconfig"; path = "Target Support Files/Pods-PSFlickr/Pods-PSFlickr.debug.xcconfig"; sourceTree = "<group>"; };
 		BD0EA6CA24A4A4A0001EF472 /* CommentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsCell.swift; sourceTree = "<group>"; };
 		BD0EA6CE24A4A74B001EF472 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BD39EB2724A892C5002625E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD56D59A2496ECE600E30541 /* PSFlickr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSFlickr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD56D59D2496ECE600E30541 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD56D5A62496ECE600E30541 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		BD56D59C2496ECE600E30541 /* PSFlickr */ = {
 			isa = PBXGroup;
 			children = (
+				BD39EB2724A892C5002625E6 /* GoogleService-Info.plist */,
 				BD56D5C424970A9500E30541 /* Helpers */,
 				BD56D5B12496F49300E30541 /* Models */,
 				BD56D59D2496ECE600E30541 /* AppDelegate.swift */,
@@ -189,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD7ADB8624A1D87C007BD66C /* Main.storyboard in Resources */,
+				BD39EB2824A892C5002625E6 /* GoogleService-Info.plist in Resources */,
 				BD56D5AA2496ECE600E30541 /* LaunchScreen.storyboard in Resources */,
 				BD56D5A72496ECE600E30541 /* Assets.xcassets in Resources */,
 			);

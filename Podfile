@@ -7,5 +7,6 @@ target 'PSFlickr' do
 
   # Pods for PSFlickr
   pod 'FlickrKit'
+  pod 'Firebase/Analytics'
 
 end

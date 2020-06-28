@@ -8,12 +8,14 @@
 
 import UIKit
 import FlickrKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+        
+        FirebaseApp.configure()
         //Initialize FlickrKit
         let apiKey = Bundle.main.infoDictionary?["API_KEY"] as! String
         let secret = Bundle.main.infoDictionary?["API_SECRET"] as! String

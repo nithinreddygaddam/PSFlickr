@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>273285228223-tc89vn02hkntuqqvtrm44ro36rqs5f7m.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.273285228223-tc89vn02hkntuqqvtrm44ro36rqs5f7m</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBCsKCfb-ZtKaY1dp5n-lHyefRn9H5Ble0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>273285228223</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.nrg.PSFlickr</string>
+	<key>PROJECT_ID</key>
+	<string>psflickr-8ef52</string>
+	<key>STORAGE_BUCKET</key>
+	<string>psflickr-8ef52.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:273285228223:ios:66f1b01f7221fca0ea880a</string>
+	<key>DATABASE_URL</key>
+	<string>https://psflickr-8ef52.firebaseio.com</string>
+</dict>
+</plist>

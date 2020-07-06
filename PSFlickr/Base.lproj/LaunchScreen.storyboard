@@ -22,7 +22,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="Lat-rD-5Af" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Rw9-bQ-wum"/>
                             <constraint firstItem="Lat-rD-5Af" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="a0L-8B-u3E"/>

@@ -11,8 +11,7 @@ import FlickrKit
 
 class PhotosViewController: UIViewController {
     
-    var userID: String?
-    var userName: String?
+    var currentUserName: String?
     var didReachTheEnd = false
     var didFilter = false
     var isFetching = false
@@ -27,7 +26,7 @@ class PhotosViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(CustomCell.self, forCellWithReuseIdentifier: "cell")
+        cv.register(PhotosCell.self, forCellWithReuseIdentifier: "cell")
         return cv
     }()
     
@@ -36,8 +35,12 @@ class PhotosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.backgroundColor = .black
+        self.navigationController?.navigationBar.barTintColor = .black
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         view.addSubview(collectionView)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .black
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.frame.width, height: view.frame.height)
@@ -45,6 +48,8 @@ class PhotosViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Tag"
+        searchController.searchBar.barStyle = .black
+
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
@@ -123,7 +128,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PhotosCell
         if photoURLs.count > 0 {
             let request = URLRequest(url: photoURLs[indexPath.item])
             let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error -> Void in
@@ -143,6 +148,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let photoDetailVC = PhotoDetailViewController()
         photoDetailVC.photoDictionary = photoArray[indexPath.item]
+        photoDetailVC.currentUserName = currentUserName
         self.navigationController?.pushViewController(photoDetailVC, animated: true)
     }
     
@@ -177,34 +183,4 @@ extension PhotosViewController: UISearchResultsUpdating {
     page = 1
     filterContentForSearchText(searchBar.text!)
   }
-}
-
-
-class CustomCell: UICollectionViewCell {
-    
-    var image: UIImage? {
-        didSet {
-            bg.image = image
-        }
-    }
-    
-    fileprivate let bg: UIImageView = {
-       let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
-        return iv
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        contentView.addSubview(bg)
-
-        bg.anchor(top: contentView.topAnchor, left: contentView.leftAnchor, bottom: contentView.bottomAnchor, right: contentView.rightAnchor, paddingTop: 0, paddingLeft: 20, paddingBottom: 0, paddingRight: 20, width: 0, height: 0)
-
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }

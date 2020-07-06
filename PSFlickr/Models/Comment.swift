@@ -19,4 +19,10 @@ struct Comment {
         let secondsFrom1970 = dictionary["datecreate"] as? String ?? "0"
         self.creationDate = Date(timeIntervalSince1970: Double(secondsFrom1970)!)
     }
+    
+    init (text: String, username: String, creationDate:Date) {
+        self.text = text
+        self.username = username
+        self.creationDate = creationDate
+    }
 }

@@ -9,29 +9,33 @@
 import UIKit
 import FlickrKit
 
-class CommentsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+class CommentsViewController: UIViewController {
 
     var photoDictionary: [String: Any]?
-    let cellId = "cellId"
     var comments = [Comment]()
+    var currentUserName: String?
     
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    fileprivate let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.register(CommentsCell.self, forCellWithReuseIdentifier: "cell")
+        return cv
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = "Comments"
+        view.addSubview(collectionView)
+        collectionView.backgroundColor = .black
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.frame.width, height: view.frame.height)
         
-        collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -50, right: 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: -50, right: 0)
-        collectionView?.backgroundColor = .white
-        collectionView?.register(CommentsCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView?.keyboardDismissMode = .interactive
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
+        collectionView.keyboardDismissMode = .interactive
         
         self.commentTextField.delegate = self
         
@@ -54,16 +58,17 @@ class CommentsViewController: UICollectionViewController, UICollectionViewDelega
                 self.comments.append(Comment(dictionary: comment as! [String: Any]))
             }
             
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.collectionView.reloadData()
-                let lastItemIndex = (self.collectionView?.numberOfItems(inSection: 0))! - 1
-                let indexPath = NSIndexPath(item: lastItemIndex, section: 0)
-                   
-                self.collectionView?.scrollToItem(at: indexPath as IndexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
-                self.commentTextField.text = ""
-                self.commentTextField.attributedPlaceholder = NSAttributedString(string: "Enter Comment", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.8)])
-            })
-            
+            self.reloadCollectionView()
+        })
+    }
+    
+    fileprivate func reloadCollectionView() {
+        DispatchQueue.main.async(execute: { () -> Void in
+            self.collectionView.reloadData()
+            let lastItemIndex = (self.collectionView.numberOfItems(inSection: 0)) - 1
+            let indexPath = NSIndexPath(item: lastItemIndex, section: 0)
+               
+            self.collectionView.scrollToItem(at: indexPath as IndexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
         })
     }
     
@@ -72,23 +77,7 @@ class CommentsViewController: UICollectionViewController, UICollectionViewDelega
             return c1.creationDate.compare(c2.creationDate) == .orderedAscending
         })
 
-        self.collectionView?.reloadData()
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return comments.count
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CommentsCell
-
-        cell.comment = comments[indexPath.item]
-
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 50)
+        self.collectionView.reloadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -128,24 +117,22 @@ class CommentsViewController: UICollectionViewController, UICollectionViewDelega
         return textField
     }()
 
-    override var inputAccessoryView: UIView? {
-        get {
-            return containerView
-        }
-    }
-
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-
     @objc func handleSubmit() {
-        guard let photoId = photoDictionary?["id"] else {
+        guard let photoId = photoDictionary?["id"], let text = commentTextField.text else {
             return
         }
         
-        FlickrKit.shared().call("flickr.photos.comments.addComment", args: ["photo_id": photoId, "comment_text": commentTextField.text ?? ""], completion: { (response, error) -> Void in
-            if error == nil {
-                self.fetchComments()
+        // Comment is added to the view before API is called
+        comments.append(Comment(text: text, username: currentUserName ?? "", creationDate: Date()))
+        self.commentTextField.text = ""
+        self.commentTextField.attributedPlaceholder = NSAttributedString(string: "Enter Comment", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.8)])
+        self.reloadCollectionView()
+        
+        FlickrKit.shared().call("flickr.photos.comments.addComment", args: ["photo_id": photoId, "comment_text": text], completion: { (response, error) -> Void in
+            if error != nil {
+                // Last comment is remove if the call fails
+                self.comments.removeLast()
+                self.reloadCollectionView()
             }
         })
     }
@@ -155,5 +142,37 @@ class CommentsViewController: UICollectionViewController, UICollectionViewDelega
         return true;
     }
 
+}
+
+extension CommentsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 50)
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return comments.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CommentsCell
+
+        cell.comment = comments[indexPath.item]
+
+        return cell
+    }
+}
+
+extension CommentsViewController: UITextFieldDelegate {
+    override var inputAccessoryView: UIView? {
+        get {
+            return containerView
+        }
+    }
+
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
 }
 

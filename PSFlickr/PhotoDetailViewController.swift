@@ -13,6 +13,7 @@ class PhotoDetailViewController: UIViewController {
 
     var photoDictionary: [String: Any]?
     var user: User?
+    var currentUserName: String?
     
     let usernameLabel: UILabel = {
         let uLabel = UILabel()
@@ -24,7 +25,7 @@ class PhotoDetailViewController: UIViewController {
     
     let profileImageView: UIImageView = {
         let pImageView = UIImageView()
-        pImageView.backgroundColor = .gray
+        pImageView.backgroundColor = .white
         pImageView.contentMode = .scaleAspectFill
         pImageView.clipsToBounds = true
         return pImageView
@@ -58,6 +59,7 @@ class PhotoDetailViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.view.alpha = 0
         view.backgroundColor = .black
         photoImageView.frame = CGRect(x: 0, y: view.frame.height/3, width: view.frame.width, height: view.frame.height/4)
         commentButton.frame = CGRect(x: view.frame.width * 0.1, y: view.frame.height - 90, width: view.frame.width * 0.8 , height: 40)
@@ -110,9 +112,18 @@ class PhotoDetailViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UIView.animate(withDuration: 0.25) {
+            self.navigationController?.view.alpha = 1.0
+        }
+    }
+    
     @objc func handleCommentButton () {
         let commentsVC = CommentsViewController()
         commentsVC.photoDictionary = photoDictionary
+        commentsVC.currentUserName = currentUserName
         self.navigationController!.pushViewController(commentsVC, animated: true)
     }
 

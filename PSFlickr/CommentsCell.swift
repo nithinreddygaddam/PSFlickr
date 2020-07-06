@@ -22,13 +22,13 @@ class CommentsCell: UICollectionViewCell {
         let tLabel = UILabel()
         tLabel.font = UIFont.systemFont(ofSize: 14)
         tLabel.numberOfLines = 0
-        tLabel.textColor = .black
+        tLabel.textColor = .white
         return tLabel
     }()
     
     let profileImageView: UIImageView = {
         let pImageView = UIImageView()
-        pImageView.backgroundColor = .gray
+        pImageView.backgroundColor = .white
         pImageView.contentMode = .scaleAspectFill
         pImageView.clipsToBounds = true
         return pImageView
@@ -38,7 +38,7 @@ class CommentsCell: UICollectionViewCell {
         
         guard let comment = self.comment else{return}
         
-        let attributedText = NSMutableAttributedString(string: comment.username, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)])
+        let attributedText = NSMutableAttributedString(string: comment.username, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.white])
         
         attributedText.append(NSAttributedString(string: "   \(comment.text)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]))
         
@@ -55,7 +55,7 @@ class CommentsCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame:frame)
         
-        self.backgroundColor = .white
+        self.backgroundColor = .black
         
         addSubview(profileImageView)
         

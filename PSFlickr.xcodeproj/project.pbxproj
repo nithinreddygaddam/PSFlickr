@@ -22,6 +22,7 @@
 		BD7ADB6424A1D5FB007BD66C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7ADB6324A1D5FB007BD66C /* SceneDelegate.swift */; };
 		BD7ADB8624A1D87C007BD66C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD7ADB8524A1D87C007BD66C /* Main.storyboard */; };
 		BD82CF25249F6804003526CB /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD82CF24249F6804003526CB /* PhotosViewController.swift */; };
+		BDC6008524B29D6C00F445EB /* PhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC6008424B29D6C00F445EB /* PhotosCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		BD7ADB6324A1D5FB007BD66C /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BD7ADB8524A1D87C007BD66C /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		BD82CF24249F6804003526CB /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		BDC6008424B29D6C00F445EB /* PhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				BD0EA6CA24A4A4A0001EF472 /* CommentsCell.swift */,
 				BD56D5C02496FA5800E30541 /* PhotoDetailViewController.swift */,
 				BD82CF24249F6804003526CB /* PhotosViewController.swift */,
+				BDC6008424B29D6C00F445EB /* PhotosCell.swift */,
 			);
 			path = PSFlickr;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				BD7ADB6424A1D5FB007BD66C /* SceneDelegate.swift in Sources */,
 				BD0EA6CB24A4A4A0001EF472 /* CommentsCell.swift in Sources */,
 				BD0EA6CF24A4A74B001EF472 /* Extensions.swift in Sources */,
+				BDC6008524B29D6C00F445EB /* PhotosCell.swift in Sources */,
 				BD56D5BF2496FA4000E30541 /* CommentsViewController.swift in Sources */,
 				BD56D5C12496FA5800E30541 /* PhotoDetailViewController.swift in Sources */,
 				BD82CF25249F6804003526CB /* PhotosViewController.swift in Sources */,
